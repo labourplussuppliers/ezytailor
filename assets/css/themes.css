@@ -1,0 +1,186 @@
+/**
+ * ezyTailor Multi-Theme System
+ * Supports: Olive Green (Default), Navy Blue, Dark Mode, Royal Maroon, Classic Teal
+ */
+
+:root, [data-theme="olive"] {
+    --primary-color: #5C6B50;
+    --primary-hover: #4E5C43;
+    --primary-dark: #3F4B36;
+    --primary-light: #7E8F72;
+    --primary-subtle: #E8ECE6;
+    --primary-contrast: #FFFFFF;
+    
+    --accent-color: #D97706;
+    --accent-subtle: #FEF3C7;
+    
+    --bg-color: #F7F6F2;
+    --bg-subtle: #EFEFEA;
+    --card-bg: #FFFFFF;
+    --card-border: #E5E7EB;
+    
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+    --text-muted: #6B7280;
+    --text-light: #9CA3AF;
+    
+    --topbar-bg: #5C6B50;
+    --topbar-text: #FFFFFF;
+    --sidebar-bg: #FFFFFF;
+    --sidebar-active-bg: #E8ECE6;
+    --sidebar-active-text: #3F4B36;
+    
+    --bottom-nav-bg: #FFFFFF;
+    --bottom-nav-border: #E5E7EB;
+    --bottom-nav-active: #5C6B50;
+
+    --badge-paid-bg: #D1FAE5;
+    --badge-paid-text: #065F46;
+    --badge-partial-bg: #FEF3C7;
+    --badge-partial-text: #92400E;
+    --badge-unpaid-bg: #FEE2E2;
+    --badge-unpaid-text: #991B1B;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* 2. Navy Blue Theme */
+[data-theme="navy"] {
+    --primary-color: #1E3A8A;
+    --primary-hover: #1D4ED8;
+    --primary-dark: #172554;
+    --primary-light: #3B82F6;
+    --primary-subtle: #EFF6FF;
+    --primary-contrast: #FFFFFF;
+    
+    --accent-color: #F59E0B;
+    --accent-subtle: #FEF3C7;
+    
+    --bg-color: #F4F6F9;
+    --bg-subtle: #E5E7EB;
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+    
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    --text-light: #94A3B8;
+    
+    --topbar-bg: #1E3A8A;
+    --topbar-text: #FFFFFF;
+    --sidebar-bg: #FFFFFF;
+    --sidebar-active-bg: #EFF6FF;
+    --sidebar-active-text: #1E3A8A;
+    
+    --bottom-nav-bg: #FFFFFF;
+    --bottom-nav-border: #E2E8F0;
+    --bottom-nav-active: #1E3A8A;
+}
+
+/* 3. Deep Charcoal / Dark Mode Theme */
+[data-theme="dark"] {
+    --primary-color: #60A5FA;
+    --primary-hover: #3B82F6;
+    --primary-dark: #2563EB;
+    --primary-light: #93C5FD;
+    --primary-subtle: #1E293B;
+    --primary-contrast: #0F172A;
+    
+    --accent-color: #FBBF24;
+    --accent-subtle: #312E81;
+    
+    --bg-color: #0F172A;
+    --bg-subtle: #1E293B;
+    --card-bg: #1E293B;
+    --card-border: #334155;
+    
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --text-light: #64748B;
+    
+    --topbar-bg: #1E293B;
+    --topbar-text: #F8FAFC;
+    --sidebar-bg: #1E293B;
+    --sidebar-active-bg: #334155;
+    --sidebar-active-text: #60A5FA;
+    
+    --bottom-nav-bg: #1E293B;
+    --bottom-nav-border: #334155;
+    --bottom-nav-active: #60A5FA;
+    
+    --badge-paid-bg: #064E3B;
+    --badge-paid-text: #6EE7B7;
+    --badge-partial-bg: #78350F;
+    --badge-partial-text: #FDE68A;
+    --badge-unpaid-bg: #7F1D1D;
+    --badge-unpaid-text: #FCA5A5;
+}
+
+/* 4. Royal Maroon Theme */
+[data-theme="maroon"] {
+    --primary-color: #7B1113;
+    --primary-hover: #991B1E;
+    --primary-dark: #580C0D;
+    --primary-light: #A52A2A;
+    --primary-subtle: #FDF2F2;
+    --primary-contrast: #FFFFFF;
+    
+    --accent-color: #D97706;
+    --accent-subtle: #FEF3C7;
+    
+    --bg-color: #FAF5F5;
+    --bg-subtle: #F3E8E8;
+    --card-bg: #FFFFFF;
+    --card-border: #F0DEDE;
+    
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+    --text-muted: #6B7280;
+    --text-light: #9CA3AF;
+    
+    --topbar-bg: #7B1113;
+    --topbar-text: #FFFFFF;
+    --sidebar-bg: #FFFFFF;
+    --sidebar-active-bg: #FDF2F2;
+    --sidebar-active-text: #7B1113;
+    
+    --bottom-nav-bg: #FFFFFF;
+    --bottom-nav-border: #F0DEDE;
+    --bottom-nav-active: #7B1113;
+}
+
+/* 5. Classic Teal Theme */
+[data-theme="teal"] {
+    --primary-color: #0D5C75;
+    --primary-hover: #0E7490;
+    --primary-dark: #083B4B;
+    --primary-light: #155E75;
+    --primary-subtle: #ECFEFF;
+    --primary-contrast: #FFFFFF;
+    
+    --accent-color: #F59E0B;
+    --accent-subtle: #FEF3C7;
+    
+    --bg-color: #F0F7F9;
+    --bg-subtle: #E2EFF3;
+    --card-bg: #FFFFFF;
+    --card-border: #CFE4EC;
+    
+    --text-primary: #164E63;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    --text-light: #94A3B8;
+    
+    --topbar-bg: #0D5C75;
+    --topbar-text: #FFFFFF;
+    --sidebar-bg: #FFFFFF;
+    --sidebar-active-bg: #ECFEFF;
+    --sidebar-active-text: #0D5C75;
+    
+    --bottom-nav-bg: #FFFFFF;
+    --bottom-nav-border: #CFE4EC;
+    --bottom-nav-active: #0D5C75;
+}
