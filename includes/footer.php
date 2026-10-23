@@ -4,6 +4,7 @@
  */
 ?>
 </main> <!-- end app-main -->
+</div> <!-- end app-main-wrapper -->
 </div> <!-- end app-wrapper -->
 
 <!-- Floating Action Button Speed Dial -->

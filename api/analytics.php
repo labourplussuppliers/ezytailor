@@ -16,30 +16,30 @@ try {
     $today = date('Y-m-d');
 
     if ($range === 'today') {
-        $dateCondition = " AND o.booking_date = '$today' ";
+        $dateCondition = " AND booking_date = '$today' ";
     } elseif ($range === 'week') {
         $last7Days = date('Y-m-d', strtotime('-7 days'));
-        $dateCondition = " AND o.booking_date >= '$last7Days' ";
+        $dateCondition = " AND booking_date >= '$last7Days' ";
     } elseif ($range === 'month') {
         $firstDayOfMonth = date('Y-m-01');
-        $dateCondition = " AND o.booking_date >= '$firstDayOfMonth' ";
+        $dateCondition = " AND booking_date >= '$firstDayOfMonth' ";
     } elseif ($range === 'year') {
         $firstDayOfYear = date('Y-01-01');
-        $dateCondition = " AND o.booking_date >= '$firstDayOfYear' ";
+        $dateCondition = " AND booking_date >= '$firstDayOfYear' ";
     }
 
     // 1. Core Summary Metrics
     $metricsSql = "
         SELECT 
-            COUNT(o.id) as total_orders,
-            COALESCE(SUM(o.total_amount), 0) as total_order_value,
-            COALESCE(SUM(o.advance_paid), 0) as total_received,
-            COALESCE(SUM(o.balance_due), 0) as total_unpaid,
-            SUM(CASE WHEN o.balance_due > 0 THEN 1 ELSE 0 END) as unpaid_orders_count,
-            SUM(CASE WHEN o.order_status = 'ready' THEN 1 ELSE 0 END) as ready_orders_count,
-            SUM(CASE WHEN o.order_status = 'delivered' THEN 1 ELSE 0 END) as delivered_orders_count,
-            COUNT(DISTINCT o.customer_id) as active_customers_count
-        FROM orders o
+            COUNT(id) as total_orders,
+            COALESCE(SUM(total_amount), 0) as total_order_value,
+            COALESCE(SUM(advance_paid), 0) as total_received,
+            COALESCE(SUM(balance_due), 0) as total_unpaid,
+            SUM(CASE WHEN balance_due > 0 THEN 1 ELSE 0 END) as unpaid_orders_count,
+            SUM(CASE WHEN order_status = 'ready' THEN 1 ELSE 0 END) as ready_orders_count,
+            SUM(CASE WHEN order_status = 'delivered' THEN 1 ELSE 0 END) as delivered_orders_count,
+            COUNT(DISTINCT customer_id) as active_customers_count
+        FROM orders
         WHERE 1=1 $dateCondition
     ";
     $metrics = $pdo->query($metricsSql)->fetch();
