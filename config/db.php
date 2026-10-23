@@ -7,27 +7,36 @@ require_once __DIR__ . '/config.php';
 
 $pdo = null;
 
-try {
-    $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
-    $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
-    ];
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
 
+try {
+    // 1. Primary connection with configured credentials
+    $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
 
 } catch (PDOException $e) {
-    // If DB doesn't exist, try creating it
+    // 2. Fallback to root if local user not yet set up
     try {
-        $temp_dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";charset=utf8mb4";
-        $temp_pdo = new PDO($temp_dsn, DB_USER, DB_PASS, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        $temp_pdo->exec("CREATE DATABASE IF NOT EXISTS `" . DB_NAME . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
-        $temp_pdo = null;
-
-        // Reconnect
-        $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+        $fallback_dsn = "mysql:host=127.0.0.1;port=3306;charset=utf8mb4";
+        $root_pdo = new PDO($fallback_dsn, 'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         
+        // Ensure database exists
+        $root_pdo->exec("CREATE DATABASE IF NOT EXISTS `" . DB_NAME . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+        // Ensure user exists
+        $root_pdo->exec("CREATE USER IF NOT EXISTS '" . DB_USER . "'@'localhost' IDENTIFIED BY '" . DB_PASS . "';");
+        $root_pdo->exec("CREATE USER IF NOT EXISTS '" . DB_USER . "'@'127.0.0.1' IDENTIFIED BY '" . DB_PASS . "';");
+        $root_pdo->exec("GRANT ALL PRIVILEGES ON `" . DB_NAME . "`.* TO '" . DB_USER . "'@'localhost';");
+        $root_pdo->exec("GRANT ALL PRIVILEGES ON `" . DB_NAME . "`.* TO '" . DB_USER . "'@'127.0.0.1';");
+        $root_pdo->exec("FLUSH PRIVILEGES;");
+        $root_pdo = null;
+
+        // Retry connection
+        $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+
         // Auto-import schema if tables missing
         $check = $pdo->query("SHOW TABLES LIKE 'settings'");
         if ($check->rowCount() === 0) {
@@ -40,7 +49,9 @@ try {
     } catch (PDOException $ex) {
         die("<div style='font-family:sans-serif;padding:30px;background:#fef2f2;border:1px solid #f87171;color:#991b1b;border-radius:8px;margin:30px auto;max-width:600px;'>
             <h3 style='margin-top:0;'>ezyTailor Database Connection Error</h3>
-            <p>Could not connect to MySQL server. Please ensure XAMPP MySQL is running.</p>
+            <p>Could not connect to MySQL server.</p>
+            <p><strong>Database:</strong> " . htmlspecialchars(DB_NAME) . "</p>
+            <p><strong>User:</strong> " . htmlspecialchars(DB_USER) . "</p>
             <p><code>" . htmlspecialchars($ex->getMessage()) . "</code></p>
         </div>");
     }

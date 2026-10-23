@@ -240,19 +240,44 @@ document.addEventListener('DOMContentLoaded', () => {
     Themes.init();
     VoiceRecorder.init();
 
-    // Mobile Sidebar Drawer Toggle
+    // Mobile Sidebar Drawer Toggle & Backdrop
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const sidebar = document.querySelector('.app-sidebar');
+    let backdrop = document.getElementById('sidebar-backdrop');
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'sidebar-backdrop';
+        backdrop.className = 'sidebar-backdrop';
+        document.body.appendChild(backdrop);
+    }
+
     if (mobileBtn && sidebar) {
-        mobileBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('show');
+        const toggleSidebar = (show) => {
+            if (show) {
+                sidebar.classList.add('show');
+                backdrop.classList.add('show');
+            } else {
+                sidebar.classList.remove('show');
+                backdrop.classList.remove('show');
+            }
+        };
+
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSidebar(!sidebar.classList.contains('show'));
         });
 
-        // Close sidebar when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!sidebar.contains(e.target) && !mobileBtn.contains(e.target) && sidebar.classList.contains('show')) {
-                sidebar.classList.remove('show');
-            }
+        backdrop.addEventListener('click', () => {
+            toggleSidebar(false);
+        });
+
+        // Close sidebar on navigation link click on mobile
+        sidebar.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 991) {
+                    toggleSidebar(false);
+                }
+            });
         });
     }
 

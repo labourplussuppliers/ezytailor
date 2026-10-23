@@ -14,9 +14,9 @@ date_default_timezone_set('Asia/Karachi');
 // Database Credentials
 define('DB_HOST', '127.0.0.1');
 define('DB_PORT', '3306');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'ezytailor_db');
+define('DB_USER', 'u949081598_ezytailor_root');
+define('DB_PASS', 'Munazza@#123');
+define('DB_NAME', 'u949081598_ezytailor');
 
 // App Info
 define('APP_NAME', 'ezyTailor');

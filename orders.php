@@ -78,7 +78,7 @@ include __DIR__ . '/includes/navbar.php';
     </div>
 
     <!-- Filter Nav Pills -->
-    <div class="d-flex gap-2 flex-wrap mb-3">
+    <div class="filter-pills-bar mb-3">
         <a href="orders.php?status=all" class="btn btn-sm <?= $filterStatus === 'all' ? 'btn-dark' : 'btn-outline-secondary' ?>">
             All (<?= $countAll ?>)
         </a>
