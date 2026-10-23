@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 date_default_timezone_set('Asia/Karachi');
 
 // Database Credentials
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
 define('DB_USER', 'u949081598_ezytailor_root');
 define('DB_PASS', 'Munazza@#123');
