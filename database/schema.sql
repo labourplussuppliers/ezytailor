@@ -1,10 +1,7 @@
 -- ========================================================
 -- EzyTailor Web Application - Production Database Schema
--- Compatible with MySQL 5.7+, 8.0+, MariaDB & SQLite
+-- Compatible with Hostinger, cPanel, MySQL 5.7+, 8.0+, MariaDB
 -- ========================================================
-
-CREATE DATABASE IF NOT EXISTS `ezytailor_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `ezytailor_db`;
 
 -- 1. Users / Auth Table
 CREATE TABLE IF NOT EXISTS `users` (

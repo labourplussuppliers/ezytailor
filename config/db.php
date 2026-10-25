@@ -18,6 +18,21 @@ try {
     $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
 
+    // Auto-check if tables exist. If missing, auto-create & seed them automatically!
+    try {
+        $check = $pdo->query("SHOW TABLES LIKE 'customers'");
+        if ($check->rowCount() === 0) {
+            $schema_file = ROOT_PATH . '/database/schema.sql';
+            if (file_exists($schema_file)) {
+                $sql = file_get_contents($schema_file);
+                $pdo->exec($sql);
+            }
+        }
+    } catch (Exception $e_schema) {
+        // Log silently
+        error_log("Schema auto-setup notice: " . $e_schema->getMessage());
+    }
+
 } catch (PDOException $e) {
     // 2. Fallback to root if local user not yet set up
     try {

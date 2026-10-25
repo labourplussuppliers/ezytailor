@@ -71,12 +71,11 @@ try {
         echo json_encode(['success' => true]);
         exit;
 
-    } elseif ($action === 'reset_demo') {
+    } elseif ($action === 'reset_demo' || $action === 'install') {
         // Re-run schema to reset demo data
         $schemaFile = ROOT_PATH . '/database/schema.sql';
         if (file_exists($schemaFile)) {
             $sql = file_get_contents($schemaFile);
-            $pdo->exec("DROP DATABASE IF EXISTS ezytailor_db; CREATE DATABASE ezytailor_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; USE ezytailor_db;");
             $pdo->exec($sql);
             echo json_encode(['success' => true, 'message' => 'Sample database reloaded successfully!']);
             exit;
