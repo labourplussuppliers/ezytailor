@@ -1,0 +1,23 @@
+# ========================================================
+# ezyTailor Apache / LiteSpeed Web Configuration
+# ========================================================
+
+# 1. Force index.php as default landing file (overrides Hostinger default.php)
+DirectoryIndex index.php index.html default.php
+
+# 2. Prevent directory indexing
+Options -Indexes
+
+# 3. Default charset
+AddDefaultCharset UTF-8
+
+# 4. Protect sensitive files & database schema from public download
+<FilesMatch "(schema\.sql|\.env|\.git|\.sqlite)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# 5. Enable gzip/deflate compression for fast loading
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
